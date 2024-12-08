@@ -92,16 +92,6 @@
                                     </select>
                                 </div>
                                 <div class="space-y-2">
-                                    <label for="teacher_id" class="block text-sm font-medium text-gray-700">Guru</label>
-                                    <select name="teacher_id" id="teacher_id" class="block w-full rounded-md" disabled>
-                                        <option value="">Pilih Guru</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                <!-- Day -->
-                                <div class="space-y-2">
                                     <label for="day" class="block text-sm font-medium text-gray-700">Hari</label>
                                     <select name="day" id="day" class="block w-full rounded-md">
                                         <option value="">Pilih Hari</option>
@@ -112,26 +102,26 @@
                                         <option value="friday">Jumat</option>
                                     </select>
                                 </div>
-                                <!-- Credit -->
-                                <div class="space-y-2">
-                                    <label for="credit" class="block text-sm font-medium text-gray-700">SKS</label>
-                                    <input type="number" name="credit" id="credit" class="block w-full rounded-md">
-                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="teacher_id" class="block text-sm font-medium text-gray-700">Guru</label>
+                                <select name="teacher_id" id="teacher_id" class="block w-full rounded-md" disabled>
+                                    <option value="">Pilih Guru</option>
+                                </select>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <!-- Start Time -->
                                 <div class="space-y-2">
-                                    <label for="start_time" class="block text-sm font-medium text-gray-700">Jam
+                                    <label for="start_hour" class="block text-sm font-medium text-gray-700">Jam
                                         Mulai</label>
-                                    <input type="time" name="start_time" id="start_time"
-                                        class="block w-full rounded-md">
+                                    <input type="number" name="start_hour" id="start_hour" class="block w-full rounded-md">
                                 </div>
                                 <!-- End Time -->
                                 <div class="space-y-2">
-                                    <label for="end_time" class="block text-sm font-medium text-gray-700">Jam
+                                    <label for="end_hour" class="block text-sm font-medium text-gray-700">Jam
                                         Selesai</label>
-                                    <input type="time" name="end_time" id="end_time"
-                                        class="block w-full rounded-md">
+                                    <input type="number" name="end_hour" id="end_hour" class="block w-full rounded-md">
                                 </div>
                             </div>
                         </div>

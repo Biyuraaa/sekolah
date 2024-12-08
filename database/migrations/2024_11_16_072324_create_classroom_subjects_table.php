@@ -20,10 +20,6 @@ return new class extends Migration
             $table->unsignedBigInteger('teacher_id')->nullable(false);
             $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
             $table->enum('status', ['active', 'inactive'])->default('active');
-            $table->enum('day', ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'])->default('monday');
-            $table->time('start_time')->nullable();
-            $table->time('end_time')->nullable();
-            $table->integer('credit')->nullable();
             $table->timestamps();
         });
     }

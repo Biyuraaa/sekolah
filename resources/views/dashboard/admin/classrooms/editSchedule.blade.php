@@ -73,7 +73,7 @@
             <!-- Form Section -->
             <div class="bg-white rounded-xl shadow-xl overflow-hidden transition-all duration-200 hover:shadow-2xl">
                 <form
-                    action="{{ route('classrooms.schedules.update', ['classroom' => $classroomId, 'classroomSubject' => $classroomSubject]) }}"
+                    action="{{ route('classrooms.schedules.update', ['classroom' => $classroomId, 'classroomSubject' => $classroomSubject, 'classroomSubjectDay' => $classroomSubjectDay]) }}"
                     method="POST" class="p-8">
                     @csrf
                     @method('PUT')
@@ -95,64 +95,59 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="space-y-2">
-                                    <label for="teacher_id" class="block text-sm font-medium text-gray-700">Guru</label>
-                                    <select name="teacher_id" id="teacher_id" class="block w-full rounded-md">
-                                        <option value="">Pilih Guru</option>
-                                        @foreach ($teachers as $teacher)
-                                            <option value="{{ $teacher->id }}"
-                                                {{ $classroomSubject->teacher_id == $teacher->id ? 'selected' : '' }}>
-                                                {{ $teacher->user->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <!-- Day -->
                                 <div class="space-y-2">
                                     <label for="day" class="block text-sm font-medium text-gray-700">Hari</label>
-                                    <select name="day" id="day" class="block w-full rounded-md">
+                                    <select name="day" id="day"
+                                        class="block w-full rounded-md @error('day') border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-500 @enderror">
                                         <option value="">Pilih Hari</option>
-                                        <option value="monday" {{ $classroomSubject->day == 'monday' ? 'selected' : '' }}>
-                                            Senin
-                                        </option>
+                                        <option value="monday"
+                                            {{ old('day', $classroomSubjectDay->day) === 'monday' ? 'selected' : '' }}>
+                                            Senin</option>
                                         <option value="tuesday"
-                                            {{ $classroomSubject->day == 'tuesday' ? 'selected' : '' }}>Selasa
-                                        </option>
+                                            {{ old('day', $classroomSubjectDay->day) === 'tuesday' ? 'selected' : '' }}>
+                                            Selasa</option>
                                         <option value="wednesday"
-                                            {{ $classroomSubject->day == 'wednesday' ? 'selected' : '' }}>
+                                            {{ old('day', $classroomSubjectDay->day) === 'wednesday' ? 'selected' : '' }}>
                                             Rabu</option>
                                         <option value="thursday"
-                                            {{ $classroomSubject->day == 'thursday' ? 'selected' : '' }}>Kamis
-                                        </option>
-                                        <option value="friday" {{ $classroomSubject->day == 'friday' ? 'selected' : '' }}>
-                                            Jumat
-                                        </option>
+                                            {{ old('day', $classroomSubjectDay->day) === 'thursday' ? 'selected' : '' }}>
+                                            Kamis</option>
+                                        <option value="friday"
+                                            {{ old('day', $classroomSubjectDay->day) === 'friday' ? 'selected' : '' }}>
+                                            Jumat</option>
                                     </select>
+                                    @error('day')
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
                                 </div>
-                                <!-- Credit -->
-                                <div class="space-y-2">
-                                    <label for="credit" class="block text-sm font-medium text-gray-700">SKS</label>
-                                    <input type="number" name="credit" id="credit" class="block w-full rounded-md"
-                                        value="{{ $classroomSubject->credit }}">
-                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label for="teacher_id" class="block text-sm font-medium text-gray-700">Guru</label>
+                                <select name="teacher_id" id="teacher_id" class="block w-full rounded-md">
+                                    <option value="">Pilih Guru</option>
+                                    @foreach ($teachers as $teacher)
+                                        <option value="{{ $teacher->id }}"
+                                            {{ $classroomSubject->teacher_id == $teacher->id ? 'selected' : '' }}>
+                                            {{ $teacher->user->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <!-- Start Time -->
                                 <div class="space-y-2">
-                                    <label for="start_time" class="block text-sm font-medium text-gray-700">Jam
+                                    <label for="start_hour" class="block text-sm font-medium text-gray-700">Jam
                                         Mulai</label>
-                                    <input type="time" name="start_time" id="start_time"
-                                        class="block w-full rounded-md" value="{{ $classroomSubject->start_time }}">
+                                    <input type="number" name="start_hour" id="start_hour" class="block w-full rounded-md"
+                                        value="{{ $classroomSubjectDay->classroomSubjectDayHours->first()->schedule_hour_id }}">
                                 </div>
                                 <!-- End Time -->
                                 <div class="space-y-2">
-                                    <label for="end_time" class="block text-sm font-medium text-gray-700">Jam
+                                    <label for="end_hour" class="block text-sm font-medium text-gray-700">Jam
                                         Selesai</label>
-                                    <input type="time" name="end_time" id="end_time" class="block w-full rounded-md"
-                                        value="{{ $classroomSubject->end_time }}">
+                                    <input type="number" name="end_hour" id="end_hour" class="block w-full rounded-md"
+                                        value="{{ $classroomSubjectDay->classroomSubjectDayHours->last()->schedule_hour_id }}">
                                 </div>
                             </div>
                         </div>

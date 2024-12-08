@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
@@ -32,15 +34,39 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $request->validated();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        try {
+            $imageName = Auth::user()->image;
+
+            if ($request->hasFile('image')) {
+                // Delete old image if exists
+                if ($imageName && Storage::disk('public')->exists('images/users/' . $imageName)) {
+                    Storage::disk('public')->delete('images/users/' . $imageName);
+                }
+
+                // Generate new filename with extension
+                $extension = $request->file('image')->getClientOriginalExtension();
+                $imageName = Str::random(32) . '.' . $extension;
+
+                // Store new image
+                $request->file('image')->storeAs('images/users', $imageName, 'public');
+            }
+
+            $user = Auth::user();
+            $user->update([
+                'name' => $request->name,
+                'address' => $request->address,
+                'phone_number' => $request->phone_number,
+                'date_of_birth' => $request->date_of_birth,
+                'gender' => $request->gender,
+                'image' => $imageName,
+            ]);
+
+            return redirect()->route('profile.index')->with('success', 'Profile updated successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to update profile: ' . $e->getMessage());
         }
-
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
     /**

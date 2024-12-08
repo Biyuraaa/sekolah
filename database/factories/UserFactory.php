@@ -30,7 +30,7 @@ class UserFactory extends Factory
             'phone_number' => $this->faker->phoneNumber,
             'address' => $this->faker->address,
             'gender' => $this->faker->randomElement(['male', 'female']),
-            'role' => 'teacher',
+            'role' => 'parent',
             'password' => bcrypt('password'), // password
             'remember_token' => Str::random(10),
         ];

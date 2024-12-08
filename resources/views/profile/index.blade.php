@@ -63,10 +63,26 @@
             <div class="bg-white shadow-lg rounded-lg overflow-hidden">
                 <div class="p-6 space-y-8">
                     <div class="flex items-start">
+                        @php
+                            $name = auth()->user()->name;
+                            $initials = collect(explode(' ', $name))
+                                ->map(function ($segment) {
+                                    return strtoupper(substr($segment, 0, 1));
+                                })
+                                ->take(2)
+                                ->join('');
+                        @endphp
+
                         <div class="flex-shrink-0">
-                            <img class="h-20 w-20 rounded-full object-cover"
-                                src="{{ auth()->user()->image ? asset('storage/images/users/' . auth()->user()->image) : asset('assets/images/airlangga.png') }}"
-                                alt="{{ auth()->user()->name }}">
+                            @if (auth()->user()->image)
+                                <img class="h-20 w-20 rounded-full object-cover"
+                                    src="{{ asset('storage/images/users/' . auth()->user()->image) }}"
+                                    alt="{{ auth()->user()->name }}">
+                            @else
+                                <div class="h-20 w-20 rounded-full bg-blue-600 flex items-center justify-center">
+                                    <span class="text-xl font-medium text-white">{{ $initials }}</span>
+                                </div>
+                            @endif
                         </div>
                         <div class="ml-6 w-full">
                             <h3 class="text-lg font-medium text-gray-900">{{ auth()->user()->name }}</h3>

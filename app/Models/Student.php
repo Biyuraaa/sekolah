@@ -13,7 +13,10 @@ class Student extends Model
     use HasFactory;
 
     protected $table = 'students';
-    protected $fillable = ['user_id'];
+    protected $fillable = [
+        'user_id',
+        'nisn',
+    ];
 
     public function user(): BelongsTo
     {
@@ -28,5 +31,22 @@ class Student extends Model
     public function classroomStudents()
     {
         return $this->hasMany(ClassroomStudent::class);
+    }
+
+    public function submissions()
+    {
+        return $this->hasMany(Submission::class);
+    }
+    public function classrooms()
+    {
+        return $this->belongsToMany(Classroom::class, 'classroom_students', 'student_id', 'classroom_id')
+            ->withPivot('status')
+            ->withTimestamps();
+    }
+
+
+    public function absences()
+    {
+        return $this->hasMany(Absence::class);
     }
 }

@@ -53,4 +53,14 @@ class Teacher extends Model
     {
         return $this->belongsTo(Position::class);
     }
+
+    public function examClassrooms()
+    {
+        return $this->hasMany(ExamClassroom::class);
+    }
+
+    public function consultations()
+    {
+        return $this->hasMany(Consultation::class);
+    }
 }

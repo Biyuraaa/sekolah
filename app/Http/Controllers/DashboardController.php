@@ -13,12 +13,12 @@ class DashboardController extends Controller
 
         if (Auth::user()->role == "admin") {
             return view("dashboard.admin.index");
-        } else if (Auth::user()->role == "teachers") {
+        } else if (Auth::user()->role == "teacher") {
             return view("dashboard.teachers.index");
-        } else if (Auth::user()->role == "parents") {
+        } else if (Auth::user()->role == "parent") {
             return view("dashboard.parents.index");
         } else if (Auth::user()->role == "student") {
-            return view("dashboard.admin.index");
+            return view("dashboard.students.index");
         }
     }
 }

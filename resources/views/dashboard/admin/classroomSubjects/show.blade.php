@@ -17,7 +17,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('classroom-subjects.index') }}"
+                        <a href="{{ route('classroomSubjects.index') }}"
                             class="flex items-center text-gray-600 hover:text-blue-600">
                             <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"
@@ -57,7 +57,7 @@
                 </div>
 
                 <div class="flex items-center space-x-4">
-                    <a href="{{ route('classrooms.show', $classroomSubject->classroom) }}"
+                    <a href="{{ route('classroomSubjects.index') }}"
                         class="inline-flex items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20"
                             fill="currentColor">
@@ -393,55 +393,39 @@
                                         </svg>
                                     </div>
                                 </div>
+
                                 <div class="space-y-4">
-                                    <div class="flex items-center space-x-3 group">
-                                        <div
-                                            class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-lg bg-purple-500/10 group-hover:bg-purple-500/20 transition-colors duration-200">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-purple-600"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                            </svg>
-                                        </div>
-                                        <div class="flex-1">
+                                    @foreach ($classroomSubjectDays as $day => $schedules)
+                                        <div>
                                             <p class="text-sm font-medium text-purple-900">Hari</p>
-                                            <p class="text-lg font-semibold text-purple-700">
-                                                {{ ucfirst($classroomSubject->day) }}</p>
-                                        </div>
-                                    </div>
+                                            <p class="text-lg font-semibold text-purple-700">{{ ucfirst($day) }}</p>
 
-                                    <div class="flex items-center space-x-3 group">
-                                        <div
-                                            class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-lg bg-purple-500/10 group-hover:bg-purple-500/20 transition-colors duration-200">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-purple-600"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
+                                            @foreach ($schedules as $schedule)
+                                                @foreach ($schedule['hours'] as $hour)
+                                                    <div class="flex items-center space-x-3 group mt-2">
+                                                        <div
+                                                            class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-lg bg-purple-500/10 group-hover:bg-purple-500/20 transition-colors duration-200">
+                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                class="h-5 w-5 text-purple-600" fill="none"
+                                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2"
+                                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                            </svg>
+                                                        </div>
+                                                        <div class="flex-1">
+                                                            <p class="text-sm font-medium text-purple-900">Jam</p>
+                                                            <p class="text-lg font-semibold text-purple-700">
+                                                                {{ \Carbon\Carbon::parse($hour['start_time'])->format('H:i') }}
+                                                                -
+                                                                {{ \Carbon\Carbon::parse($hour['end_time'])->format('H:i') }}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            @endforeach
                                         </div>
-                                        <div class="flex-1">
-                                            <p class="text-sm font-medium text-purple-900">Waktu</p>
-                                            <p class="text-lg font-semibold text-purple-700">
-                                                {{ $classroomSubject->start_time }} - {{ $classroomSubject->end_time }}
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div class="flex items-center space-x-3 group">
-                                        <div
-                                            class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-lg bg-purple-500/10 group-hover:bg-purple-500/20 transition-colors duration-200">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-purple-600"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                                            </svg>
-                                        </div>
-                                        <div class="flex-1">
-                                            <p class="text-sm font-medium text-purple-900">Ruangan</p>
-                                            <p class="text-lg font-semibold text-purple-700">{{ $classroomSubject->room }}
-                                            </p>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>

@@ -21,7 +21,6 @@ class Classroom extends Model
     ];
 
 
-
     public function classroomStudents()
     {
         return $this->hasMany(ClassroomStudent::class);
@@ -41,5 +40,34 @@ class Classroom extends Model
         return $this->belongsToMany(Student::class, 'classroom_students', 'classroom_id', 'student_id')
             ->withPivot('status')
             ->withTimestamps();
+    }
+
+
+
+    public function examClassrooms()
+    {
+        return $this->hasMany(ExamClassroom::class);
+    }
+
+    // Classroom.php
+    public function getTotalTeachingHoursAttribute()
+    {
+        return $this->classroomSubjects()
+            ->join('classroom_subject_days', 'classroom_subjects.id', '=', 'classroom_subject_days.classroom_subject_id')
+            ->join('classroom_subject_day_hours', 'classroom_subject_days.id', '=', 'classroom_subject_day_hours.classroom_subject_day_id')
+            ->join('schedule_hours', 'classroom_subject_day_hours.schedule_hour_id', '=', 'schedule_hours.id')
+            ->selectRaw('SUM(TIMESTAMPDIFF(MINUTE, schedule_hours.start_time, schedule_hours.end_time)) AS total_minutes')
+            ->value('total_minutes') / 60; // Mengonversi menit ke jam
+    }
+
+    public function getTotalTeachingHoursForSubject(ClassroomSubject $classroomSubject)
+    {
+        return $this->classroomSubjects()
+            ->where('subject_id', $classroomSubject->subject->id) // Filter berdasarkan ID mata pelajaran tertentu
+            ->join('classroom_subject_days', 'classroom_subjects.id', '=', 'classroom_subject_days.classroom_subject_id')
+            ->join('classroom_subject_day_hours', 'classroom_subject_days.id', '=', 'classroom_subject_day_hours.classroom_subject_day_id')
+            ->join('schedule_hours', 'classroom_subject_day_hours.schedule_hour_id', '=', 'schedule_hours.id')
+            ->selectRaw('SUM(TIMESTAMPDIFF(MINUTE, schedule_hours.start_time, schedule_hours.end_time)) AS total_minutes')
+            ->value('total_minutes') / 60;
     }
 }

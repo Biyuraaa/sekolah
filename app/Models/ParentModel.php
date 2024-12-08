@@ -10,6 +10,11 @@ class ParentModel extends Model
 
     protected $table = "parents";
 
+    protected $fillable = [
+        "user_id",
+        "student_id",
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -18,5 +23,11 @@ class ParentModel extends Model
     public function student(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Student::class);
+    }
+
+
+    public function payments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Payment::class);
     }
 }

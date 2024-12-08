@@ -17,16 +17,7 @@ class ClassroomSubject extends Model
         'subject_id',
         'teacher_id',
         'status',
-        'day',
-        'start_time',
-        'end_time',
-        'credit',
     ];
-
-    public function student()
-    {
-        return $this->belongsTo(Student::class);
-    }
 
     public function teacher()
     {
@@ -41,5 +32,20 @@ class ClassroomSubject extends Model
     public function subject()
     {
         return $this->belongsTo(Subject::class);
+    }
+
+    public function classroomSubjectDays()
+    {
+        return $this->hasMany(ClassroomSubjectDay::class);
+    }
+
+    public function studentScores()
+    {
+        return $this->hasMany(StudentScore::class);
+    }
+
+    public function weeks()
+    {
+        return $this->hasMany(Week::class);
     }
 }

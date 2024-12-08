@@ -13,16 +13,17 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('styles')
 </head>
 
 <body class="h-full bg-gray-100">
     <div class="min-h-screen flex">
         <!-- Sidebar -->
-        @include('layouts.sidebar')
+        @include('components.sidebar')
 
         <!-- Main Content -->
         <div class="flex-1 flex flex-col overflow-hidden ml-64">
-            @include('layouts.header')
+            @include('components.header')
             <!-- margin-left untuk memberikan ruang bagi sidebar -->
 
             <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100">

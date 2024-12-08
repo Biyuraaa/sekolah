@@ -29,4 +29,9 @@ class ClassroomStudent extends Model
     {
         return $this->belongsTo(Classroom::class);
     }
+
+    public function studentScores()
+    {
+        return $this->hasMany(StudentScore::class);
+    }
 }

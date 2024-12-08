@@ -23,15 +23,12 @@ class StoreClassroomSubjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
             "teacher_id" => "required|exists:teachers,id",
             "subject_id" => "required|exists:subjects,id",
             "classroom_id" => "required|exists:classrooms,id",
-            "status" => "required|in:active,inactive",
             "day" => "required|in:monday,tuesday,wednesday,thursday,friday",
-            "start_time" => "required|date_format:H:i",
-            "end_time" => "required|date_format:H:i",
-            "credit" => "required|integer",
+            "start_hour" => "required|integer|min:1",
+            "end_hour" => "required|integer|min:1|gte:start_hour",
         ];
     }
 }

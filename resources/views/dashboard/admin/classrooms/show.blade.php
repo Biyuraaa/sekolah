@@ -112,19 +112,15 @@
                         <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                             <!-- Total Students -->
                             <div
-                                class="bg-gradient-to-r from-blue-500 to-blue-600 text-white overflow-hidden shadow-lg rounded-lg transform hover:scale-105 transition duration-300">
+                                class="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
                                 <div class="p-6">
                                     <div class="flex items-center">
-                                        <div class="flex-shrink-0">
-                                            <svg class="h-8 w-8 text-white" xmlns="http://www.w3.org/2000/svg"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                                            </svg>
+                                        <div class="flex-shrink-0 p-3 bg-blue-600/30 rounded-lg">
+                                            <i class="fas fa-users text-2xl"></i>
                                         </div>
                                         <div class="ml-5">
                                             <dl>
-                                                <dt class="text-sm font-medium">Total Siswa</dt>
+                                                <dt class="text-sm font-medium text-blue-100">Total Siswa</dt>
                                                 <dd class="text-2xl font-bold">{{ $classroom->classroomStudents->count() }}
                                                 </dd>
                                             </dl>
@@ -135,21 +131,17 @@
 
                             <!-- Total Subjects -->
                             <div
-                                class="bg-gradient-to-r from-green-500 to-green-600 text-white overflow-hidden shadow-lg rounded-lg transform hover:scale-105 transition duration-300">
+                                class="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
                                 <div class="p-6">
                                     <div class="flex items-center">
-                                        <div class="flex-shrink-0">
-                                            <svg class="h-8 w-8 text-white" xmlns="http://www.w3.org/2000/svg"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                                            </svg>
+                                        <div class="flex-shrink-0 p-3 bg-green-600/30 rounded-lg">
+                                            <i class="fas fa-book text-2xl"></i>
                                         </div>
                                         <div class="ml-5">
                                             <dl>
-                                                <dt class="text-sm font-medium">Total Mata Pelajaran</dt>
-                                                <dd class="text-2xl font-bold">
-                                                    {{ $classroom->classroomSubjects->count() }}</dd>
+                                                <dt class="text-sm font-medium text-green-100">Total Mata Pelajaran</dt>
+                                                <dd class="text-2xl font-bold">{{ $classroom->classroomSubjects->count() }}
+                                                </dd>
                                             </dl>
                                         </div>
                                     </div>
@@ -158,21 +150,17 @@
 
                             <!-- Total Teaching Hours -->
                             <div
-                                class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white overflow-hidden shadow-lg rounded-lg transform hover:scale-105 transition duration-300">
+                                class="bg-gradient-to-br from-yellow-500 to-yellow-600 text-white rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
                                 <div class="p-6">
                                     <div class="flex items-center">
-                                        <div class="flex-shrink-0">
-                                            <svg class="h-8 w-8 text-white" xmlns="http://www.w3.org/2000/svg"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
+                                        <div class="flex-shrink-0 p-3 bg-yellow-600/30 rounded-lg">
+                                            <i class="fas fa-clock text-2xl"></i>
                                         </div>
                                         <div class="ml-5">
                                             <dl>
-                                                <dt class="text-sm font-medium">Total Jam Pelajaran</dt>
+                                                <dt class="text-sm font-medium text-yellow-100">Total Jam Pelajaran</dt>
                                                 <dd class="text-2xl font-bold">
-                                                    {{ $classroom->classroomSubjects->sum('credit') }} Jam</dd>
+                                                    {{ number_format($classroom->total_teaching_hours, 2) }} Jam</dd>
                                             </dl>
                                         </div>
                                     </div>
@@ -181,19 +169,15 @@
 
                             <!-- Active Students -->
                             <div
-                                class="bg-gradient-to-r from-purple-500 to-purple-600 text-white overflow-hidden shadow-lg rounded-lg transform hover:scale-105 transition duration-300">
+                                class="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
                                 <div class="p-6">
                                     <div class="flex items-center">
-                                        <div class="flex-shrink-0">
-                                            <svg class="h-8 w-8 text-white" xmlns="http://www.w3.org/2000/svg"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
+                                        <div class="flex-shrink-0 p-3 bg-purple-600/30 rounded-lg">
+                                            <i class="fas fa-user-check text-2xl"></i>
                                         </div>
                                         <div class="ml-5">
                                             <dl>
-                                                <dt class="text-sm font-medium">Siswa Aktif</dt>
+                                                <dt class="text-sm font-medium text-purple-100">Siswa Aktif</dt>
                                                 <dd class="text-2xl font-bold">
                                                     {{ $classroom->classroomStudents->where('status', 'ongoing')->count() }}
                                                 </dd>
@@ -251,84 +235,85 @@
                                             </tr>
                                         </thead>
                                         <tbody class="bg-white divide-y divide-gray-200">
-                                            @foreach ($classroom->classroomSubjects->sortBy('day')->groupBy('day') as $day => $schedules)
+                                            @foreach ($schedules as $day => $daySchedules)
                                                 <tr class="bg-gray-50">
                                                     <td colspan="6"
                                                         class="px-6 py-3 text-sm font-semibold text-gray-700">
                                                         {{ ucfirst($day) }}
                                                     </td>
                                                 </tr>
-                                                @foreach ($schedules->sortBy('start_time') as $schedule)
+                                                @foreach ($daySchedules->sortBy('start_time') as $schedule)
                                                     <tr class="hover:bg-gray-100">
                                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                                            {{ \Carbon\Carbon::parse($schedule->start_time)->format('H:i') }}
+                                                            {{ \Carbon\Carbon::parse($schedule['start_time'])->format('H:i') }}
                                                             -
-                                                            {{ \Carbon\Carbon::parse($schedule->end_time)->format('H:i') }}
+                                                            {{ \Carbon\Carbon::parse($schedule['end_time'])->format('H:i') }}
                                                         </td>
                                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                                            {{ $schedule->subject->name }}
+                                                            {{ $schedule['subject']->name }}
                                                         </td>
                                                         <td class="px-6 py-4 whitespace-nowrap">
                                                             <div class="flex items-center">
                                                                 <div class="flex-shrink-0 h-8 w-8">
                                                                     <img class="h-8 w-8 rounded-full"
-                                                                        src="{{ $schedule->teacher->user->image ?? 'https://ui-avatars.com/api/?name=' . urlencode($schedule->teacher->user->name) }}"
-                                                                        alt="{{ $schedule->teacher->user->name }}">
+                                                                        src="{{ $schedule['teacher']->user->image ?? 'https://ui-avatars.com/api/?name=' . urlencode($schedule['teacher']->user->name) }}"
+                                                                        alt="{{ $schedule['teacher']->user->name }}">
                                                                 </div>
                                                                 <div class="ml-4">
                                                                     <div class="text-sm font-medium text-gray-900">
-                                                                        {{ $schedule->teacher->user->name }}
+                                                                        {{ $schedule['teacher']->user->name }}
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </td>
                                                         <td class="px-6 py-4 whitespace-nowrap">
                                                             <span
-                                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $schedule->status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                                                                {{ $schedule->status === 'active' ? 'Aktif' : 'Tidak Aktif' }}
+                                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                        {{ $schedule['status'] === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                                                {{ $schedule['status'] === 'active' ? 'Aktif' : 'Tidak Aktif' }}
                                                             </span>
                                                         </td>
                                                         <td
                                                             class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                             <!-- Tombol Lihat -->
-                                                            <a href="{{ route('classrooms.schedules.show', ['classroom' => $classroom->id, 'classroomSubject' => $schedule]) }}"
-                                                                class="inline-flex items-center px-3 py-1.5 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    class="h-4 w-4 mr-2" fill="none"
-                                                                    viewBox="0 0 24 24" stroke="currentColor">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                                        stroke-width="2"
-                                                                        d="M15 12H9m0 0H4m5 0v9m0-9V3m6 6h9m-9 0V3m0 9v9m6-9H9" />
-                                                                </svg>
+                                                            <a href="{{ route('classrooms.schedules.show', [
+                                                                'classroom' => $classroom->id,
+                                                                'classroomSubject' => $schedule['classroomSubject_id'],
+                                                            ]) }}"
+                                                                class="inline-flex items-center px-3 py-1.5 text-white bg-blue-600 rounded-md hover:bg-blue-700">
+                                                                <i class="fas fa-eye mr-2"></i>
                                                                 Lihat
                                                             </a>
 
                                                             <!-- Tombol Edit -->
-                                                            <a href="{{ route('classrooms.schedules.edit', ['classroom' => $classroom->id, 'classroomSubject' => $schedule]) }}"
-                                                                class="inline-flex items-center px-3 py-1.5 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
-                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    class="h-4 w-4 mr-2" fill="none"
-                                                                    viewBox="0 0 24 24" stroke="currentColor">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                                        stroke-width="2"
-                                                                        d="M11 17a4 4 0 01-2-7.464A4 4 0 0112 8a4 4 0 011 7.936v1.525M16.938 14.938A9 9 0 1110 6.062M13.512 17.512l2.988 2.988M16.5 19.5l1.5-1.5" />
-                                                                </svg>
+                                                            <a href="{{ route('classrooms.schedules.edit', [
+                                                                'classroom' => $classroom->id,
+                                                                'classroomSubject' => $schedule['classroomSubject_id'],
+                                                                'classroomSubjectDay' => $schedule['classroomSubjectDay_id'],
+                                                            ]) }}"
+                                                                class="inline-flex items-center px-3 py-1.5 text-white bg-orange-600 rounded-md hover:bg-orange-700">
+                                                                <i class="fas fa-edit mr-2"></i>
                                                                 Edit
                                                             </a>
 
                                                             <!-- Tombol Hapus -->
-                                                            <a href="{{ route('classrooms.schedules.delete', ['classroom' => $classroom->id, 'classroomSubject' => $schedule->id]) }}"
-                                                                class="inline-flex items-center px-3 py-1.5 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    class="h-4 w-4 mr-2" fill="none"
-                                                                    viewBox="0 0 24 24" stroke="currentColor">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                                        stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                                                </svg>
-                                                                Hapus
-                                                            </a>
+                                                            <form
+                                                                action="{{ route('classrooms.schedules.delete', [
+                                                                    'classroom' => $classroom->id,
+                                                                    'classroomSubject' => $schedule['classroomSubject_id'],
+                                                                    'classroomSubjectDay' => $schedule['classroomSubjectDay_id'],
+                                                                ]) }}"
+                                                                method="POST" class="inline-block"
+                                                                onsubmit="return confirm('Are you sure you want to delete this schedule?');">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="inline-flex items-center px-3 py-1.5 text-white bg-red-600 rounded-md hover:bg-red-700">
+                                                                    <i class="fas fa-trash mr-2"></i>
+                                                                    Hapus
+                                                                </button>
+                                                            </form>
                                                         </td>
-
                                                     </tr>
                                                 @endforeach
                                             @endforeach
@@ -426,7 +411,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                                    {{ $classroomStudent->student->student_id_number }}
+                                                    {{ $classroomStudent->student->nis ?? '-' }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                                     {{ $classroomStudent->student->user->gender }}
@@ -450,23 +435,46 @@
                                     @default
                                         bg-gray-100 text-gray-800
                                 @endswitch">
-                                                        {{ ucfirst(str_replace('_', ' ', $classroomStudent->status)) }}
+                                                        {{ $classroomStudent->status }}
+
                                                     </span>
                                                 </td>
-                                                <td
-                                                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex space-x-2">
-                                                    <!-- Action Buttons -->
-                                                    <a href="{{ route('students.edit', $classroomStudent->student->id) }}"
-                                                        class="text-green-600 hover:text-green-900">Edit</a>
-                                                    <form method="POST"
-                                                        action="{{ route('students.destroy', $classroomStudent->student->id) }}"
-                                                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus siswa ini?')">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit"
-                                                            class="text-red-600 hover:text-red-900">Hapus</button>
-                                                    </form>
-                                                </td>
+                                                {{-- <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                        <!-- Tombol Lihat -->
+                                                        <a href="{{ route('classrooms.students.show', ['classroom' => $classroom->id, 'classroomStudents' => $schedule]) }}"
+                                                            class="inline-flex items-center px-3 py-1.5 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2"
+                                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2"
+                                                                    d="M15 12H9m0 0H4m5 0v9m0-9V3m6 6h9m-9 0V3m0 9v9m6-9H9" />
+                                                            </svg>
+                                                            Lihat
+                                                        </a>
+
+                                                        <!-- Tombol Edit -->
+                                                        <a href="{{ route('classrooms.students.edit', ['classroom' => $classroom->id, 'classroomStudents' => $schedule]) }}"
+                                                            class="inline-flex items-center px-3 py-1.5 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2"
+                                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2"
+                                                                    d="M11 17a4 4 0 01-2-7.464A4 4 0 0112 8a4 4 0 011 7.936v1.525M16.938 14.938A9 9 0 1110 6.062M13.512 17.512l2.988 2.988M16.5 19.5l1.5-1.5" />
+                                                            </svg>
+                                                            Edit
+                                                        </a>
+
+                                                        <!-- Tombol Hapus -->
+                                                        <a href="{{ route('classrooms.students.delete', ['classroom' => $classroom->id, 'classroomStudents' => $schedule->id]) }}"
+                                                            class="inline-flex items-center px-3 py-1.5 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2"
+                                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                            </svg>
+                                                            Hapus
+                                                        </a>
+                                                    </td> --}}
                                             </tr>
                                         @endforeach
                                     </tbody>

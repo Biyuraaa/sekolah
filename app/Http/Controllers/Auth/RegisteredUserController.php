@@ -34,6 +34,7 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'nisn' => ['required', 'string', 'max:255', 'unique:' . Student::class],
         ]);
 
         $user = User::create([
@@ -44,7 +45,7 @@ class RegisteredUserController extends Controller
 
         Student::create([
             'user_id' => $user->id,
-
+            'nisn' => $request->nisn,
         ]);
 
         event(new Registered($user));

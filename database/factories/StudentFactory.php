@@ -20,6 +20,7 @@ class StudentFactory extends Factory
         return [
             //
             "user_id" => User::factory(),
+            "nisn" => $this->faker->unique()->numerify('##########'),
         ];
     }
 }
