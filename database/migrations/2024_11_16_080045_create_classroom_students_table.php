@@ -16,14 +16,13 @@ return new class extends Migration
             $table->unsignedBigInteger('student_id')->nullable(false);
             $table->unsignedBigInteger('classroom_id')->nullable(false);
             $table->unique(['student_id', 'classroom_id']);
-            // Status yang lebih deskriptif
             $table->enum('status', [
                 'ongoing',
                 'graduated',
                 'not_graduated',
                 'dropped_out',
                 'inactive'
-            ])->default('ongoing'); // Status default adalah 'sedang berjalan'            
+            ])->default('ongoing');
             $table->timestamps();
         });
     }

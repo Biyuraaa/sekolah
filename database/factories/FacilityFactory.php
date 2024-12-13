@@ -18,6 +18,11 @@ class FacilityFactory extends Factory
     {
         return [
             //
+            'name' => $this->faker->words(3, true),
+            'description' => $this->faker->sentence(),
+            'location' => $this->faker->address(),
+            'capacity' => $this->faker->numberBetween(10, 100),
+            'status' => $this->faker->randomElement(['available', 'unavailable', 'maintenance']),
         ];
     }
 }

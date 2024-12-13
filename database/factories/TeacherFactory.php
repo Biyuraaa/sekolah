@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Position;
+use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,12 +21,10 @@ class TeacherFactory extends Factory
     public function definition(): array
     {
         return [
-            //
-            'user_id' => User::factory()->create()->id, // Membuat user baru dan mengambil ID-nya
-            'subject_id' => $this->faker->randomNumber(1, 10),
+            'user_id' => User::factory()->teacher(),
+            'subject_id' => Subject::inRandomOrder()->first()->id,
             'status' => $this->faker->randomElement(['active', 'inactive', 'pending', 'terminated', 'retired', 'on_leave']),
-            "position_id" => $this->faker->randomNumber(1, 20),
-            'is_certified' => $this->faker->boolean,
+            'position_id' => Position::inRandomOrder()->first()->id,
         ];
     }
 }

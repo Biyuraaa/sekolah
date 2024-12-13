@@ -20,7 +20,6 @@ return new class extends Migration
             $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
             $table->foreign('position_id')->references('id')->on('positions')->onDelete('cascade');
             $table->enum('status', ['active', 'inactive', 'pending', 'terminated', 'retired', 'on_leave'])->default('active');
-            $table->boolean('is_certified')->default(false);
             $table->timestamps();
         });
     }

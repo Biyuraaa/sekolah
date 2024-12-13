@@ -45,4 +45,31 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+    /**
+     * Set role as teacher.
+     */
+    public function teacher(): static
+    {
+        return $this->state(fn(array $attributes) => [
+            'role' => 'teacher',
+        ]);
+    }
+
+    /**
+     * Set role as student.
+     */
+    public function student(): static
+    {
+        return $this->state(fn(array $attributes) => [
+            'role' => 'student',
+        ]);
+    }
+
+    public function parent()
+    {
+        return $this->state(fn(array $attributes) => [
+            'role' => 'parent',
+        ]);
+    }
 }

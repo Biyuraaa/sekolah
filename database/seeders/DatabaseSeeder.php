@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Classroom;
+use App\Models\Exam;
+use App\Models\Facility;
 use App\Models\ParentModel;
 use App\Models\Student;
 use App\Models\Teacher;
@@ -34,23 +37,23 @@ class DatabaseSeeder extends Seeder
             'role' => 'teacher',
         ]);
 
-        // Teacher::create([
-        //     'user_id' => $teacher->id,
-        //     'position_id' => 1,
-        //     'subject_id' => 1,
-        //     'status' => 'active',
-        // ]);
-
-
-
-        Teacher::factory(10)->create();
-
-        Student::factory(100)->create();
-
-        $parent = User::factory()->create();
-        ParentModel::create([
-            'user_id' => $parent->id,
-            'student_id' => 101,
+        Teacher::create([
+            'user_id' => $teacher->id,
+            'position_id' => 1,
+            'subject_id' => 1,
+            'status' => 'active',
         ]);
+
+
+
+        Teacher::factory(20)->create();
+
+        ParentModel::factory(100)->create();
+
+        Classroom::factory(50)->create();
+
+        Exam::factory(20)->create();
+
+        Facility::factory(50)->create();
     }
 }
