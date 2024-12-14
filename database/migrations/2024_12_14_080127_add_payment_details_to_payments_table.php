@@ -11,18 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payments', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('parent_id');
-            $table->foreign('parent_id')->references('id')->on('parents')->onDelete('cascade');
-            $table->decimal('amount', 10, 2);
-            $table->string('purpose');
-            $table->string('proof_of_payment');
+        //
+        Schema::table('payments', function (Blueprint $table) {
             $table->enum('payment_method', ['cash', 'transfer', 'e-wallet']);
             $table->enum('month', ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']);
             $table->year('year');
-            $table->enum('status', ['pending', 'confirmed', 'rejected'])->default('pending');
-            $table->timestamps();
         });
     }
 
@@ -31,6 +24,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payments');
+        //
+        Schema::table('payments', function (Blueprint $table) {
+            $table->dropColumn(['payment_method', 'month', 'year']);
+        });
     }
 };

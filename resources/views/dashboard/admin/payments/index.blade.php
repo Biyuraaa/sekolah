@@ -47,23 +47,28 @@
                     </div>
                 </div>
             </div>
-
             <div class="bg-white shadow-md rounded-lg overflow-hidden">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
                             <th scope="col"
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No
                             </th>
                             <th scope="col"
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama
-                                Siswa</th>
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Nama</th>
                             <th scope="col"
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Jumlah</th>
                             <th scope="col"
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Keperluan</th>
+                                Metode Pembayaran</th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bulan
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tahun
+                            </th>
                             <th scope="col"
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bukti
                             </th>
@@ -79,12 +84,21 @@
                         @forelse($payments as $payment)
                             <tr class="hover:bg-gray-50 transition-colors duration-200">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    {{ $payment->id }}</td>
+                                    {{ $loop->iteration }}
+                                </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                     {{ $payment->parent->student->user->name }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Rp
                                     {{ number_format($payment->amount, 2, ',', '.') }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $payment->purpose }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    {{ ucfirst($payment->payment_method) }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    {{ ucfirst($payment->month) }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    {{ $payment->year }}
+                                </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
                                     @if ($payment->proof_of_payment)
                                         <a href="{{ asset('storage/' . $payment->proof_of_payment) }}" target="_blank"
@@ -94,7 +108,10 @@
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    {{ $payment->created_at->format('d M Y') }}</td>
+                                    {{ $payment->created_at->format('d M Y') }}
+                                </td>
+
+
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     @if ($payment->status === 'pending')
                                         <button
@@ -156,7 +173,9 @@
                 </div>
             </div>
 
-
+            <div class="mt-8">
+                {{ $payments->links() }}
+            </div>
 
         </div>
     </div>

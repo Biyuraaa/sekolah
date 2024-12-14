@@ -30,13 +30,17 @@ class TeacherController extends Controller
 
             // Menghitung jumlah guru aktif dan bersertifikasi
             $activeTeachers = Teacher::active()->count();
-            $certifiedTeachers = Teacher::certified()->count();
 
             // Menghitung total mata pelajaran
             $totalSubjects = Subject::count();
 
             // Mengirim data ke view
-            return view("dashboard.admin.teachers.index", compact("teachers", "totalTeachers", "activeTeachers", "certifiedTeachers", "totalSubjects"));
+            return view("dashboard.admin.teachers.index", compact(
+                "teachers",
+                "totalTeachers",
+                "activeTeachers",
+                "totalSubjects"
+            ));
         }
     }
 

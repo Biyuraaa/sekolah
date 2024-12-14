@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateExamRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateExamRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::user()->role === 'admin';
     }
 
     /**
@@ -22,7 +23,12 @@ class UpdateExamRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "subject_id" => "required|exists:subjects,id",
+            "type" => "required|in:uts,uas",
+            "date" => "required|date",
+            "start_time" => "required|date_format:H:i",
+            "end_time" => "required|date_format:H:i",
+            "academic_year" => "required|string",
         ];
     }
 }

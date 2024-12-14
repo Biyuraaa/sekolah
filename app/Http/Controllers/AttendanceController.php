@@ -35,6 +35,8 @@ class AttendanceController extends Controller
                         'classroom' => $classroom,
                         'classroomSubjects' => $classroom->classroomSubjects
                     ]);
+                } else {
+                    return redirect()->route('dashboard');
                 }
             }
         }

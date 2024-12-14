@@ -19,7 +19,7 @@ class GradeExamController extends Controller
         if (Auth::user()->role == "teacher") {
             $teacherId = Auth::user()->teacher->id;
 
-            $examsToGrade = Exam::join('exam_classrooms', 'exams.id', '=', 'exam_classrooms.exam_id')
+            $exams = Exam::join('exam_classrooms', 'exams.id', '=', 'exam_classrooms.exam_id')
                 ->join('classrooms', 'exam_classrooms.classroom_id', '=', 'classrooms.id')
                 ->join('subjects', 'exams.subject_id', '=', 'subjects.id')
                 ->join('classroom_subjects', function ($join) use ($teacherId) {
@@ -41,8 +41,7 @@ class GradeExamController extends Controller
                 ->orderBy('exams.date', 'desc')
                 ->orderBy('exams.start_time', 'asc')
                 ->get();
-
-            return view('dashboard.teachers.gradeExams.index', compact('examsToGrade'));
+            return view('dashboard.teachers.gradeExams.index', compact('exams'));
         } else if (Auth::user()->role == 'student') {
             $classroomStudents = ClassroomStudent::where('student_id', Auth::user()->student->id)->get();
             $classroomStudentIds = $classroomStudents->pluck('id')->toArray();
@@ -71,7 +70,7 @@ class GradeExamController extends Controller
                     'exam_id' => $exam->id,
                     'classroom_student_id' => $classroomStudent->id,
                     'classroom_subject_id' => $classroomSubject->id,
-                    'score' => null,
+                    'score' => 0,
                     'notes' => null,
                 ]);
             }
@@ -84,6 +83,7 @@ class GradeExamController extends Controller
 
         return view('dashboard.teachers.gradeExams.show', compact('exam', 'classroomSubject', 'studentScores'));
     }
+
 
     public function update(Request $request, StudentScore $studentScore)
     {

@@ -37,7 +37,7 @@
                                     clip-rule="evenodd"></path>
                             </svg>
                             <span class="text-gray-500 ml-1 md:ml-2 font-medium">
-                                Create New Payment
+                                Edit Pembayaran
                             </span>
                         </div>
                     </li>
@@ -54,10 +54,10 @@
                     </div>
                     <div>
                         <h2 class="text-2xl font-bold text-gray-900">
-                            Create New Tuition Payment
+                            Edit Pembayaran Tuition
                         </h2>
                         <p class="text-sm font-medium text-gray-500">
-                            Create a new payment for your child's tuition fee
+                            Edit detail pembayaran yang sudah dibuat
                         </p>
                     </div>
                 </div>
@@ -69,19 +69,20 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                         </svg>
-                        <span>Back</span>
+                        <span>Kembali</span>
                     </a>
                 </div>
             </div>
             <div class="bg-white rounded-xl shadow-xl overflow-hidden transition-all duration-200 hover:shadow-2xl">
                 <div class="p-6 sm:p-8">
-                    <form action="{{ route('payments.store') }}" method="POST" enctype="multipart/form-data"
+                    <form action="{{ route('payments.update', $payment->id) }}" method="POST" enctype="multipart/form-data"
                         class="space-y-6">
                         @csrf
+                        @method('PUT')
 
-                        <input type="hidden" name="parent_id" value="{{ Auth::user()->parent->id }}">
+                        <input type="hidden" name="parent_id" value="{{ $payment->parent_id }}">
 
-                        <!-- Amount Input with Currency Formatting -->
+                        <!-- Amount Input dengan Formatting Mata Uang -->
                         <div class="space-y-2">
                             <label for="amount" class="block text-sm font-medium text-gray-700">
                                 Jumlah Pembayaran <span class="text-red-500">*</span>
@@ -92,8 +93,8 @@
                                 </div>
                                 <input type="number" name="amount" id="amount"
                                     class="block w-full rounded-md @error('amount') border-red-500 @else border-gray-300 @enderror pl-12 pr-12 focus:border-green-500 focus:ring-green-500 sm:text-sm"
-                                    placeholder="0.00" value="{{ old('amount') }}" required step="0.01" min="0"
-                                    x-model.number="amount" x-on:input="formatCurrency">
+                                    placeholder="0.00" value="{{ old('amount', $payment->amount) }}" required step="0.01"
+                                    min="0" x-model.number="amount" x-on:input="formatCurrency">
                                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                                     <span class="text-gray-500 sm:text-sm">.00</span>
                                 </div>
@@ -110,8 +111,8 @@
                             </label>
                             <input type="text" name="purpose" id="purpose"
                                 class="mt-1 block w-full rounded-md @error('purpose') border-red-500 @else border-gray-300 @enderror shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
-                                placeholder="Contoh: SPP Bulan Januari 2024" value="{{ old('purpose') }}" required
-                                maxlength="255">
+                                placeholder="Contoh: SPP Bulan Januari 2024" value="{{ old('purpose', $payment->purpose) }}"
+                                required maxlength="255">
                             @error('purpose')
                                 <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                             @enderror
@@ -125,11 +126,14 @@
                                 class="mt-1 block w-full rounded-md @error('payment_method') border-red-500 @else border-gray-300 @enderror shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
                                 required>
                                 <option value="">Pilih Metode Pembayaran</option>
-                                <option value="cash" {{ old('payment_method') == 'cash' ? 'selected' : '' }}>Tunai
+                                <option value="cash"
+                                    {{ old('payment_method', $payment->payment_method) == 'cash' ? 'selected' : '' }}>Tunai
                                     (Cash)</option>
-                                <option value="transfer" {{ old('payment_method') == 'transfer' ? 'selected' : '' }}>
+                                <option value="transfer"
+                                    {{ old('payment_method', $payment->payment_method) == 'transfer' ? 'selected' : '' }}>
                                     Transfer Bank</option>
-                                <option value="e-wallet" {{ old('payment_method') == 'e-wallet' ? 'selected' : '' }}>
+                                <option value="e-wallet"
+                                    {{ old('payment_method', $payment->payment_method) == 'e-wallet' ? 'selected' : '' }}>
                                     E-Wallet</option>
                             </select>
                             @error('payment_method')
@@ -137,7 +141,7 @@
                             @enderror
                         </div>
 
-                        <!-- New: Month and Year Selection -->
+                        <!-- Bulan dan Tahun Pembayaran -->
                         <div class="grid grid-cols-2 gap-4">
                             <div class="space-y-1">
                                 <label for="month" class="block text-sm font-medium text-gray-700">
@@ -147,24 +151,33 @@
                                     class="mt-1 block w-full rounded-md @error('month') border-red-500 @else border-gray-300 @enderror shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
                                     required>
                                     <option value="">Pilih Bulan</option>
-                                    <option value="january" {{ old('month') == 'january' ? 'selected' : '' }}>Januari
+                                    <option value="january"
+                                        {{ old('month', $payment->month) == 'january' ? 'selected' : '' }}>Januari</option>
+                                    <option value="february"
+                                        {{ old('month', $payment->month) == 'february' ? 'selected' : '' }}>Februari
                                     </option>
-                                    <option value="february" {{ old('month') == 'february' ? 'selected' : '' }}>Februari
+                                    <option value="march"
+                                        {{ old('month', $payment->month) == 'march' ? 'selected' : '' }}>Maret</option>
+                                    <option value="april"
+                                        {{ old('month', $payment->month) == 'april' ? 'selected' : '' }}>April</option>
+                                    <option value="may" {{ old('month', $payment->month) == 'may' ? 'selected' : '' }}>
+                                        Mei</option>
+                                    <option value="june"
+                                        {{ old('month', $payment->month) == 'june' ? 'selected' : '' }}>Juni</option>
+                                    <option value="july"
+                                        {{ old('month', $payment->month) == 'july' ? 'selected' : '' }}>Juli</option>
+                                    <option value="august"
+                                        {{ old('month', $payment->month) == 'august' ? 'selected' : '' }}>Agustus</option>
+                                    <option value="september"
+                                        {{ old('month', $payment->month) == 'september' ? 'selected' : '' }}>September
                                     </option>
-                                    <option value="march" {{ old('month') == 'march' ? 'selected' : '' }}>Maret</option>
-                                    <option value="april" {{ old('month') == 'april' ? 'selected' : '' }}>April</option>
-                                    <option value="may" {{ old('month') == 'may' ? 'selected' : '' }}>Mei</option>
-                                    <option value="june" {{ old('month') == 'june' ? 'selected' : '' }}>Juni</option>
-                                    <option value="july" {{ old('month') == 'july' ? 'selected' : '' }}>Juli</option>
-                                    <option value="august" {{ old('month') == 'august' ? 'selected' : '' }}>Agustus
+                                    <option value="october"
+                                        {{ old('month', $payment->month) == 'october' ? 'selected' : '' }}>Oktober</option>
+                                    <option value="november"
+                                        {{ old('month', $payment->month) == 'november' ? 'selected' : '' }}>November
                                     </option>
-                                    <option value="september" {{ old('month') == 'september' ? 'selected' : '' }}>
-                                        September</option>
-                                    <option value="october" {{ old('month') == 'october' ? 'selected' : '' }}>Oktober
-                                    </option>
-                                    <option value="november" {{ old('month') == 'november' ? 'selected' : '' }}>November
-                                    </option>
-                                    <option value="december" {{ old('month') == 'december' ? 'selected' : '' }}>Desember
+                                    <option value="december"
+                                        {{ old('month', $payment->month) == 'december' ? 'selected' : '' }}>Desember
                                     </option>
                                 </select>
                                 @error('month')
@@ -186,10 +199,13 @@
                                         $nextYear = $currentYear + 1;
                                     @endphp
                                     <option value="{{ $previousYear }}"
-                                        {{ old('year') == $previousYear ? 'selected' : '' }}>{{ $previousYear }}</option>
+                                        {{ old('year', $payment->year) == $previousYear ? 'selected' : '' }}>
+                                        {{ $previousYear }}</option>
                                     <option value="{{ $currentYear }}"
-                                        {{ old('year') == $currentYear ? 'selected' : '' }}>{{ $currentYear }}</option>
-                                    <option value="{{ $nextYear }}" {{ old('year') == $nextYear ? 'selected' : '' }}>
+                                        {{ old('year', $payment->year) == $currentYear ? 'selected' : '' }}>
+                                        {{ $currentYear }}</option>
+                                    <option value="{{ $nextYear }}"
+                                        {{ old('year', $payment->year) == $nextYear ? 'selected' : '' }}>
                                         {{ $nextYear }}</option>
                                 </select>
                                 @error('year')
@@ -198,7 +214,7 @@
                             </div>
                         </div>
 
-                        <!-- File Upload with Preview -->
+                        <!-- File Upload dengan Preview -->
                         <div class="space-y-1">
                             <label for="proof_of_payment" class="block text-sm font-medium text-gray-700">
                                 Bukti Pembayaran <span class="text-red-500">*</span>
@@ -215,14 +231,25 @@
                                     <div class="flex text-sm text-gray-600">
                                         <label for="proof_of_payment"
                                             class="relative cursor-pointer rounded-md font-medium text-green-600 hover:text-green-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-green-500">
-                                            <span>Upload file</span>
+                                            <span>Unggah file</span>
                                             <input id="proof_of_payment" name="proof_of_payment" type="file"
-                                                class="sr-only" accept="image/png,image/jpeg,image/gif" required
+                                                class="sr-only" accept="image/png,image/jpeg,image/gif"
                                                 x-on:change="file = $event.target.files[0]">
                                         </label>
                                         <p class="pl-1">atau drag and drop</p>
                                     </div>
                                     <p class="text-xs text-gray-500">PNG, JPG, GIF sampai 10MB</p>
+
+                                    <!-- Tampilkan gambar yang sudah ada -->
+                                    @if ($payment->proof_of_payment)
+                                        <div class="mt-4">
+                                            <p class="text-sm font-medium text-gray-700 mb-2">Bukti Pembayaran Saat Ini:
+                                            </p>
+                                            <img src="{{ Storage::url($payment->proof_of_payment) }}"
+                                                alt="Bukti Pembayaran" class="mx-auto max-h-48 rounded-lg shadow-md">
+                                        </div>
+                                    @endif
+
                                     <template x-if="file">
                                         <p x-text="file.name" class="mt-2 text-sm text-gray-500"></p>
                                     </template>
@@ -233,7 +260,7 @@
                             @enderror
                         </div>
 
-                        <!-- Action Buttons -->
+                        <!-- Tombol Aksi -->
                         <div class="flex items-center justify-end space-x-4 pt-4">
                             <a href="{{ route('payments.index') }}"
                                 class="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
@@ -241,7 +268,7 @@
                             </a>
                             <button type="submit"
                                 class="inline-flex justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-                                Simpan Pembayaran
+                                Simpan Perubahan
                             </button>
                         </div>
                     </form>

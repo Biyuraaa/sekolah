@@ -36,9 +36,12 @@ Route::get('/contact', function () {
 })->name('contact');
 
 Route::get('/attendance-data', [ChartController::class, 'attendanceData'])->name('attendance.data');
+Route::get('/payment-data', [ChartController::class, 'paymentData'])->name('payment.data');
+Route::get('/progress-data', [ChartController::class, 'progressData'])->name('progress.data');
+Route::get('/consultation-data', [ChartController::class, 'consultationData'])->name('consultation.data');
 
 Route::get('/api/subjects', function () {
-    return \App\Models\Subject::select('id', 'name')->get();
+    return \App\Models\Subject::select('id', 'name')->orderBy('name')->get();
 });
 
 
@@ -57,12 +60,9 @@ Route::middleware(['auth', 'verified'])->prefix('/dashboard')->group(function ()
     Route::resource('consultations', ConsultationController::class);
     Route::put('appoinments/{appointment}/confirm', [ConsultationController::class, 'confirm'])->name('appointments.confirm');
     Route::resource('appointments', AppointmentController::class);
-    Route::get('/payments', [PaymentController::class, 'index'])->name('payments.index');
-    Route::get('/payments/create', [PaymentController::class, 'create'])->name('payments.create');
-    Route::post('/payments', [PaymentController::class, 'store'])->name('payments.store');
-    Route::get('/payments/{payment}/edit', [PaymentController::class, 'edit'])->name('payments.edit');
-    Route::post('/payments/{payment}/update-status', [PaymentController::class, 'updateStatus'])->name('payments.updateStatus');
     Route::resource('facilitySchedules', FacilityScheduleController::class);
+    Route::post('/payments/{payment}/update-status', [PaymentController::class, 'updateStatus'])->name('payments.updateStatus');
+    Route::resource('payments', PaymentController::class);
     Route::prefix('/classrooms/{classroom}/schedules')->group(function () {
         Route::get('/create', [ClassroomController::class, 'createSchedule'])->name('classrooms.schedules.create');
         Route::post('/', [ClassroomController::class, 'storeSchedule'])->name('classrooms.schedules.store');

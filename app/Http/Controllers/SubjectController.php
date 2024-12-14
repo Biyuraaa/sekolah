@@ -21,20 +21,12 @@ class SubjectController extends Controller
         //
         $subjects = Subject::paginate(10);
         $totalSubjects = Subject::count();
-        $totalCreditHours = Subject::sum('credit_hours');
         $totalTeachers = Teacher::count(); // Menghitung jumlah total guru.
-        $averageCreditHours = number_format(Subject::avg('credit_hours'), 1);
-        $creditHoursDistribution = Subject::select('credit_hours', DB::raw('count(*) as count'))
-            ->groupBy('credit_hours')
-            ->get();
 
         return view("dashboard.admin.subjects.index", compact(
             "subjects",
             "totalSubjects",
-            "totalCreditHours",
             "totalTeachers",
-            "averageCreditHours",
-            "creditHoursDistribution"
         ));
     }
 

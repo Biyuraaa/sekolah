@@ -260,20 +260,13 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            // Update the table row
                             const row = document.querySelector(`[data-score-id="${scoreId}"]`).closest(
                                 'tr');
                             const scoreSpan = row.querySelector('td:nth-child(3) span');
                             const notesSpan = row.querySelector('td:nth-child(4) span');
-
-                            // Update score and apply new color
                             scoreSpan.textContent = score;
                             updateScoreColor(scoreSpan, score);
-
-                            // Update notes
                             notesSpan.textContent = notes || 'Tidak ada catatan';
-
-                            // Close the modal
                             modal.classList.add('hidden');
                         } else {
                             alert('Terjadi kesalahan saat menyimpan nilai.');

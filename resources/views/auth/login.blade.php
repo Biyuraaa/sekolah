@@ -51,7 +51,6 @@
                 <div class="space-y-6">
                     <img src="{{ asset('assets/images/logo.svg') }}" alt="Logo" class="h-32 fade-in" id="logo">
                     <h1 class="text-4xl font-bold fade-in" id="title">ONE</h1>
-                    <p class="text-xl fade-in" id="subtitle">Cyber Campus - Excellence with Morality</p>
                     <div class="flex space-x-4 mt-8">
                         <div class="bg-white bg-opacity-10 p-4 rounded-lg icon-box fade-in" id="box1">
                             <i class="fas fa-graduation-cap text-3xl"></i>
@@ -172,7 +171,7 @@
 
                 <div class="text-center mt-8">
                     <p class="text-sm text-gray-600">
-                        &copy; {{ date('Y') }} Universitas Airlangga. All rights reserved.
+                        &copy; {{ date('Y') }} ONE. All rights reserved.
                     </p>
                 </div>
             </div>

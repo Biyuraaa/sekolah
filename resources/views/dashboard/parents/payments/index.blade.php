@@ -59,20 +59,25 @@
                 </div>
             </div>
 
-
             <div class="bg-white shadow-md rounded-lg overflow-hidden">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
                             <th scope="col"
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No
                             </th>
                             <th scope="col"
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Jumlah</th>
                             <th scope="col"
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Keperluan</th>
+                                Metode Pembayaran</th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bulan
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tahun
+                            </th>
                             <th scope="col"
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bukti
                             </th>
@@ -91,10 +96,20 @@
                         @forelse($payments as $payment)
                             <tr class="hover:bg-gray-50 transition-colors duration-200">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    {{ $payment->id }}</td>
+                                    {{ $loop->iteration }}
+                                </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    Rp {{ number_format($payment->amount, 2, ',', '.') }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $payment->purpose }}</td>
+                                    Rp {{ number_format($payment->amount, 2, ',', '.') }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    {{ ucfirst($payment->payment_method) }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    {{ ucfirst($payment->month) }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    {{ $payment->year }}
+                                </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
                                     @if ($payment->proof_of_payment)
                                         <a href="{{ asset('storage/' . $payment->proof_of_payment) }}" target="_blank"
@@ -113,28 +128,43 @@
                                     {{ $payment->created_at->format('d M Y') }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    @if ($payment->status === 'pending')
-                                        <a href="{{ route('payments.edit', $payment->id) }}"
-                                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
-                                            Unggah Bukti
-                                        </a>
-                                    @else
-                                        <span class="text-gray-500">Tidak ada aksi</span>
-                                    @endif
+                                    @switch($payment->status)
+                                        @case('pending')
+                                            <a href="{{ route('payments.edit', $payment->id) }}"
+                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                                                Unggah Bukti
+                                            </a>
+                                        @break
+
+                                        @case('confirmed')
+                                            <button disabled
+                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-gray-200 cursor-not-allowed">
+                                                Unggah Bukti
+                                            </button>
+                                        @break
+
+                                        @case('rejected')
+                                            <a href="{{ route('payments.edit', $payment->id) }}"
+                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                                                Unggah Ulang
+                                            </a>
+                                        @break
+
+                                        @default
+                                            <span class="text-gray-500">Tidak ada aksi</span>
+                                    @endswitch
                                 </td>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="7" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                                    Tidak ada data pembayaran
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                            @empty
+                                <tr>
+                                    <td colspan="9" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                                        Tidak ada data pembayaran
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
-
         </div>
-    </div>
-@endsection
+    @endsection

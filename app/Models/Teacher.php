@@ -34,11 +34,6 @@ class Teacher extends Model
         return $query->where('status', 'active');
     }
 
-    public function scopeCertified($query)
-    {
-        return $query->where('is_certified', true);
-    }
-
     public function classroomSubjects()
     {
         return $this->hasMany(ClassroomSubject::class);

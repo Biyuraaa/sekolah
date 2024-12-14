@@ -93,6 +93,13 @@ class ExamController extends Controller
     public function update(UpdateExamRequest $request, Exam $exam)
     {
         //
+        try {
+            $exam->update($request->all());
+            return redirect()->route("exams.index")->with("success", " Berhasil mengubah data ujian");
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->back()->with("error",  $e->getMessage());
+        }
     }
 
     /**
@@ -109,7 +116,10 @@ class ExamController extends Controller
 
         $classrooms = Classroom::whereDoesntHave('examClassrooms', function ($query) use ($exam) {
             $query->where('exam_id', $exam->id);
-        })->get();
+        })->where('academic_year', $exam->academic_year)
+            ->orderBy('year_level')
+            ->orderBy('group_numbers')
+            ->get();
 
         return view("dashboard.admin.exams.examClassrooms.create", compact(
             "exam",
@@ -193,13 +203,11 @@ class ExamController extends Controller
             ];
         });
 
-        $teachers = Teacher::all();
 
         return view('dashboard.admin.exams.examClassrooms.show', [
             'exam' => $exam,
             'examClassroom' => $examClassroom,
             'studentScores' => $studentScores,
-            'teachers' => $teachers,
         ]);
     }
 

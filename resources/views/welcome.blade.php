@@ -13,7 +13,7 @@
                 <!-- Text Content -->
                 <div class="text-left space-y-6">
                     <div class="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-sm font-medium">
-                        Welcome to EduSync
+                        Welcome to ONE
                     </div>
                     <h1 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
                         Transform Your School Management Experience
@@ -158,8 +158,8 @@
                             <img class="w-12 h-12 rounded-full object-cover mr-4" src="https://i.pravatar.cc/100?img=1"
                                 alt="John Doe">
                             <div>
-                                <h4 class="text-lg font-semibold text-gray-900">John Doe</h4>
-                                <p class="text-sm text-gray-500">School Principal</p>
+                                <h4 class="text-lg font-semibold text-gray-900">Rizal Hidayatullah</h4>
+                                <p class="text-sm text-gray-500">164221002</p>
                             </div>
                         </div>
 
@@ -212,8 +212,8 @@
                             <img class="w-12 h-12 rounded-full object-cover mr-4" src="https://i.pravatar.cc/100?img=5"
                                 alt="Jane Smith">
                             <div>
-                                <h4 class="text-lg font-semibold text-gray-900">Jane Smith</h4>
-                                <p class="text-sm text-gray-500">Lead Teacher</p>
+                                <h4 class="text-lg font-semibold text-gray-900">Dara Devinta Faradhilla</h4>
+                                <p class="text-sm text-gray-500">164221002</p>
                             </div>
                         </div>
 
@@ -263,8 +263,67 @@
                             <img class="w-12 h-12 rounded-full object-cover mr-4 border-2 border-purple-100"
                                 src="https://i.pravatar.cc/100?img=3" alt="Michael Johnson">
                             <div>
-                                <h4 class="text-lg font-semibold text-gray-900">Michael Johnson</h4>
-                                <p class="text-sm text-gray-500">District Administrator</p>
+                                <h4 class="text-lg font-semibold text-gray-900">Tasyfia Farhah Subrina Lubis</h4>
+                                <p class="text-sm text-gray-500">164221031</p>
+                            </div>
+                        </div>
+
+                        <div class="flex mb-4">
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                        </div>
+
+                        <p class="text-gray-600 leading-relaxed mb-6 italic">"EduSync has revolutionized our district-wide
+                            communication and data management. The comprehensive analytics and user-friendly interface have
+                            been game-changers for our administrative processes."</p>
+
+                        <div class="text-sm text-gray-500 flex items-center justify-between mt-4">
+                            <div class="flex items-center">
+                                <svg class="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span>3 months ago</span>
+                            </div>
+                            <span class="text-purple-500 font-medium">via EduSync Mobile</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="group hover:-translate-y-2 transition-all duration-300">
+                    <div
+                        class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all relative overflow-hidden">
+                        <div
+                            class="absolute top-0 left-0 w-full h-1 bg-purple-500 origin-left transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300">
+                        </div>
+                        <div
+                            class="absolute -top-4 -right-4 w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-2xl font-serif">
+                            "</div>
+
+                        <div class="flex items-center mb-6">
+                            <img class="w-12 h-12 rounded-full object-cover mr-4 border-2 border-purple-100"
+                                src="https://i.pravatar.cc/100?img=3" alt="Michael Johnson">
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-900">Dhiwa Abqarriyah</h4>
+                                <p class="text-sm text-gray-500">164221117</p>
                             </div>
                         </div>
 

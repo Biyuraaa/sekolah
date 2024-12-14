@@ -100,7 +100,7 @@
                                 <dl>
                                     <dt class="text-sm font-medium text-gray-500 truncate">Total Jam Kredit</dt>
                                     <dd class="flex items-baseline">
-                                        <div class="text-2xl font-semibold text-gray-900">{{ $totalCreditHours }}</div>
+                                        <div class="text-2xl font-semibold text-gray-900"></div>
                                     </dd>
                                 </dl>
                             </div>
@@ -148,7 +148,7 @@
                                 <dl>
                                     <dt class="text-sm font-medium text-gray-500 truncate">Rata-rata Jam Kredit</dt>
                                     <dd class="flex items-baseline">
-                                        <div class="text-2xl font-semibold text-gray-900">{{ $averageCreditHours }}</div>
+                                        <div class="text-2xl font-semibold text-gray-900"></div>
                                     </dd>
                                 </dl>
                             </div>
@@ -175,19 +175,7 @@
                         </form>
                     </div>
 
-                    <!-- Credit Hours Filter -->
-                    <div>
-                        <select name="credit_hours" onchange="this.form.submit()"
-                            class="w-full rounded-lg border-gray-300 focus:border-purple-500 focus:ring-purple-500">
-                            <option value="">Semua Jam Kredit</option>
-                            @foreach (range(1, 6) as $hours)
-                                <option value="{{ $hours }}"
-                                    {{ request('credit_hours') == $hours ? 'selected' : '' }}>
-                                    {{ $hours }} Jam
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+
 
                     <!-- Sort Options -->
                     <div>
@@ -199,8 +187,7 @@
                             <option value="name_desc" {{ request('sort') == 'name_desc' ? 'selected' : '' }}>
                                 Nama (Z-A)
                             </option>
-                            <option value="credit_hours_asc"
-                                {{ request('sort') == 'credit_hours_asc' ? 'selected' : '' }}>
+                            <option value="credit_hours_asc" {{ request('sort') == 'credit_hours_asc' ? 'selected' : '' }}>
                                 Jam Kredit (Terendah)
                             </option>
                             <option value="credit_hours_desc"
@@ -226,10 +213,7 @@
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Nama Mata Pelajaran
                                 </th>
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Jam Kredit
-                                </th>
+
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Guru Pengajar
@@ -251,52 +235,37 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span
-                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">
-                                            {{ $subject->credit_hours }} Jam
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span
                                             class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
                                             {{ $subject->teachers->count() ?? 0 }} Guru
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <div class="flex space-x-2">
-                                            <a href="{{ route('subjects.show', $subject) }}"
-                                                class="text-purple-600 hover:text-purple-900">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                                    viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                                </svg>
-                                            </a>
-                                            <a href="{{ route('subjects.edit', $subject) }}"
-                                                class="text-purple-600 hover:text-purple-900">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                                    viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                </svg>
-                                            </a>
-                                            <form action="{{ route('subjects.destroy', $subject) }}" method="POST"
-                                                class="inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                    class="text-red-600 hover:text-red-900 focus:outline-none"
-                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus mata pelajaran ini?')">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                    </svg>
-                                                </button>
-                                            </form>
-                                        </div>
+                                        <!-- Tombol Lihat -->
+                                        <a href="{{ route('subjects.show', $subject) }}"
+                                            class="inline-flex items-center px-3 py-1.5 text-white bg-blue-600 rounded-md hover:bg-blue-700">
+                                            <i class="fas fa-eye mr-2"></i>
+                                            Lihat
+                                        </a>
+
+                                        <!-- Tombol Edit -->
+                                        <a href="{{ route('subjects.edit', $subject) }}"
+                                            class="inline-flex items-center px-3 py-1.5 text-white bg-orange-600 rounded-md hover:bg-orange-700">
+                                            <i class="fas fa-edit mr-2"></i>
+                                            Edit
+                                        </a>
+
+                                        <!-- Tombol Hapus -->
+                                        <form action="{{ route('subjects.destroy', $subject) }}" method="POST"
+                                            class="inline-block"
+                                            onsubmit="return confirm('Are you sure you want to delete this schedule?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="inline-flex items-center px-3 py-1.5 text-white bg-red-600 rounded-md hover:bg-red-700">
+                                                <i class="fas fa-trash mr-2"></i>
+                                                Hapus
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @empty
@@ -318,88 +287,10 @@
             </div>
 
 
-
-            <!-- Quick Stats Cards -->
-            <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Teachers per Subject Chart -->
-                <div class="bg-white shadow-lg rounded-lg p-6">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4">Distribusi Guru per Mata Pelajaran</h3>
-                    <div class="h-64">
-                        <canvas id="teachersPerSubject"></canvas>
-                    </div>
-                </div>
-
-                <!-- Credit Hours Distribution -->
-                <div class="bg-white shadow-lg rounded-lg p-6">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4">Distribusi Jam Kredit</h3>
-                    <div class="h-64">
-                        <canvas id="creditHoursDistribution"></canvas>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
     @push('scripts')
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script>
-            // Teachers per Subject Chart
-            const teachersCtx = document.getElementById('teachersPerSubject').getContext('2d');
-            new Chart(teachersCtx, {
-                type: 'bar',
-                data: {
-                    labels: {!! json_encode($subjects->pluck('name')) !!},
-                    datasets: [{
-                        label: 'Jumlah Guru',
-                        data: {!! json_encode($subjects->pluck('teachers_count')) !!},
-                        backgroundColor: 'rgba(147, 51, 234, 0.5)',
-                        borderColor: 'rgba(147, 51, 234, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-
-            // Credit Hours Distribution Chart
-            const creditHoursCtx = document.getElementById('creditHoursDistribution').getContext('2d');
-            new Chart(creditHoursCtx, {
-                type: 'pie',
-                data: {
-                    labels: {!! json_encode($creditHoursDistribution->pluck('credit_hours')) !!},
-                    datasets: [{
-                        data: {!! json_encode($creditHoursDistribution->pluck('count')) !!},
-                        backgroundColor: [
-                            'rgba(147, 51, 234, 0.5)',
-                            'rgba(59, 130, 246, 0.5)',
-                            'rgba(16, 185, 129, 0.5)',
-                            'rgba(245, 158, 11, 0.5)',
-                            'rgba(239, 68, 68, 0.5)',
-                            'rgba(107, 114, 128, 0.5)'
-                        ],
-                        borderColor: [
-                            'rgba(147, 51, 234, 1)',
-                            'rgba(59, 130, 246, 1)',
-                            'rgba(16, 185, 129, 1)',
-                            'rgba(245, 158, 11, 1)',
-                            'rgba(239, 68, 68, 1)',
-                            'rgba(107, 114, 128, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                }
-            });
-        </script>
+        <script></script>
     @endpush
 @endsection

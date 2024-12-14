@@ -16,10 +16,12 @@ class Payment extends Model
     protected $fillable = [
         "parent_id",
         "amount",
-        "amount",
         "purpose",
+        "payment_method",
+        "month",
+        "year",
         "status",
-        "proof_of_payment"
+        "proof_of_payment",
     ];
 
     public function parent()

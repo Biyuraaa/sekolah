@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Payment;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePaymentRequest;
+use App\Http\Requests\UpdatePaymentRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PaymentController extends Controller
 {
-    //
-
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
         if (Auth::user()->role == "parent") {
@@ -24,7 +27,7 @@ class PaymentController extends Controller
         } else if (Auth::user()->role == "admin") {
             $payments = Payment::orderBy("created_at", "desc")
                 ->where('status', 'pending')
-                ->get();
+                ->paginate(10);
 
             return view("dashboard.admin.payments.index", compact("payments"));
         } else {
@@ -32,27 +35,23 @@ class PaymentController extends Controller
         }
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
         return view("dashboard.parents.payments.create");
     }
 
-    public function store(Request $request)
+
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StorePaymentRequest $request)
     {
-        $validatedData = $request->validate(
-            [
-                'parent_id' => 'required|exists:parents,id',
-                'amount' => 'required|numeric|min:0|max:99999999.99',
-                'purpose' => 'required|string|max:255',
-                'proof_of_payment' => 'required|image|mimes:jpeg,png,gif|max:10240', // 10MB max
-            ],
-            [
-                'parent_id.exists' => 'Orang tua yang dipilih tidak valid.',
-                'amount.min' => 'Jumlah pembayaran harus lebih dari 0.',
-                'proof_of_payment.max' => 'Bukti pembayaran tidak boleh lebih dari 10MB.',
-                'proof_of_payment.mimes' => 'Bukti pembayaran harus berupa gambar (JPEG, PNG, atau GIF).'
-            ]
-        );
+        //
+        $validatedData = $request->validated();
 
         if ($request->hasFile('proof_of_payment')) {
             $extension = $request->file('proof_of_payment')->getClientOriginalExtension();
@@ -74,9 +73,82 @@ class PaymentController extends Controller
             'purpose' => $validatedData['purpose'],
             'proof_of_payment' => $validatedData['proof_of_payment_path'],
             'status' => 'pending',
+            "payment_method" => $validatedData['payment_method'],
+            "month" => $validatedData['month'],
+            "year" => $validatedData['year'],
         ]);
 
         return redirect()->route('payments.index')->with('success', 'Pembayaran berhasil dibuat');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Payment $payment)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Payment $payment)
+    {
+        return view("dashboard.parents.payments.edit", compact("payment"));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdatePaymentRequest $request, Payment $payment)
+    {
+        // Validasi data yang diterima
+        $validatedData = $request->validated();
+
+        // Cek apakah file baru diunggah
+        if ($request->hasFile('proof_of_payment')) {
+            // Hapus file gambar lama jika ada
+            if ($payment->proof_of_payment && Storage::disk('public')->exists($payment->proof_of_payment)) {
+                Storage::disk('public')->delete($payment->proof_of_payment);
+            }
+
+            // Simpan file gambar baru
+            $extension = $request->file('proof_of_payment')->getClientOriginalExtension();
+            $parent = Auth::user()->parent;
+            $studentName = $parent->student->user->name;
+            $fileName = Str::slug($studentName) . '_' . Str::slug($request->purpose) . '.' . $extension;
+            $filePath = $request->file('proof_of_payment')->storeAs(
+                'images/payments',
+                $fileName,
+                'public'
+            );
+
+            $validatedData['proof_of_payment_path'] = $filePath;
+        } else {
+            // Jika tidak ada file baru, gunakan file lama
+            $validatedData['proof_of_payment_path'] = $payment->proof_of_payment;
+        }
+
+        // Update data pembayaran
+        $payment->update([
+            'amount' => $validatedData['amount'],
+            'purpose' => $validatedData['purpose'],
+            'proof_of_payment' => $validatedData['proof_of_payment_path'],
+            "payment_method" => $validatedData['payment_method'],
+            "month" => $validatedData['month'],
+            "year" => $validatedData['year'],
+        ]);
+
+        return redirect()->route('payments.index')->with('success', 'Pembayaran berhasil diperbarui');
+    }
+
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Payment $payment)
+    {
+        //
     }
 
     public function updateStatus(Request $request, Payment $payment)
