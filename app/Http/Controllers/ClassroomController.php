@@ -29,14 +29,25 @@ class ClassroomController extends Controller
     {
         //
         if (Auth::user()->role == "admin") {
-            $classrooms = Classroom::paginate(10);
+            $classrooms = Classroom::orderBy('academic_year', 'desc')
+                ->orderBy('year_level')
+                ->orderBy('group_numbers')
+                ->paginate(10);
             $subjects = Subject::all();
             $teachers = Teacher::all();
-            return view("dashboard.admin.classrooms.index", compact("classrooms", "subjects", "teachers"));
+            return view("dashboard.admin.classrooms.index", compact(
+                "classrooms",
+                "subjects",
+                "teachers"
+            ));
         } else if (Auth::user()->role == 'teacher') {
             $teacherId = Auth::user()->teacher->id;
 
-            $classrooms = Classroom::where('teacher_id', $teacherId)->paginate(10);
+            $classrooms = Classroom::where('teacher_id', $teacherId)
+                ->orderBy('academic_year', 'desc')
+                ->orderBy('year_level')
+                ->orderBy('group_numbers')
+                ->paginate(10);
 
             $totalClassrooms = $classrooms->count();
             $totalActiveClassrooms = $classrooms->where('status', 'active')->count();

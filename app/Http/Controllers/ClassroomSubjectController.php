@@ -32,34 +32,37 @@ class ClassroomSubjectController extends Controller
                 'teacher.user',
                 'classroomSubjectDays.classroomSubjectDayHours.scheduleHour'
             ])->where('teacher_id', $teacherId)
-                ->get()->map(function ($subject) {
-                    // Map schedules using the merging logic
-                    $schedules = $subject->classroomSubjectDays->mapWithKeys(function ($day) {
-                        $hours = $day->classroomSubjectDayHours->sortBy('scheduleHour.hour_number');
-                        $mergedHours = [];
-                        $currentStart = null;
-                        $currentEnd = null;
+                ->get()
+                ->map(function ($subject) {
+                    $schedules = $subject->classroomSubjectDays
+                        ->sortBy('day')
+                        ->mapWithKeys(function ($day) {
+                            $hours = $day->classroomSubjectDayHours
+                                ->sortBy('scheduleHour.hour_number');
 
-                        foreach ($hours as $hour) {
-                            if (!$currentStart) {
-                                $currentStart = $hour->scheduleHour->start_time;
-                                $currentEnd = $hour->scheduleHour->end_time;
-                            } elseif ($hour->scheduleHour->start_time == $currentEnd) {
-                                $currentEnd = $hour->scheduleHour->end_time;
-                            } else {
-                                $mergedHours[] = $currentStart . ' - ' . $currentEnd;
-                                $currentStart = $hour->scheduleHour->start_time;
-                                $currentEnd = $hour->scheduleHour->end_time;
+                            $mergedHours = [];
+                            $currentStart = null;
+                            $currentEnd = null;
+
+                            foreach ($hours as $hour) {
+                                if (!$currentStart) {
+                                    $currentStart = $hour->scheduleHour->start_time;
+                                    $currentEnd = $hour->scheduleHour->end_time;
+                                } elseif ($hour->scheduleHour->start_time == $currentEnd) {
+                                    $currentEnd = $hour->scheduleHour->end_time;
+                                } else {
+                                    $mergedHours[] = $currentStart . ' - ' . $currentEnd;
+                                    $currentStart = $hour->scheduleHour->start_time;
+                                    $currentEnd = $hour->scheduleHour->end_time;
+                                }
                             }
-                        }
 
-                        // Tambahkan rentang terakhir
-                        if ($currentStart && $currentEnd) {
-                            $mergedHours[] = $currentStart . ' - ' . $currentEnd;
-                        }
+                            if ($currentStart && $currentEnd) {
+                                $mergedHours[] = $currentStart . ' - ' . $currentEnd;
+                            }
 
-                        return [$day->day => $mergedHours];
-                    });
+                            return [$day->day => $mergedHours];
+                        });
 
                     return [
                         'id' => $subject->id,
@@ -70,6 +73,7 @@ class ClassroomSubjectController extends Controller
                         'status' => $subject->status,
                     ];
                 });
+
 
             $totalSchedules = $classroomSubjects->count();
             $activeSchedules = $classroomSubjects->where('status', 'active')->count();

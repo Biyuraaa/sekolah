@@ -12,6 +12,8 @@ class DashboardController extends Controller
     {
 
         if (Auth::user()->role == "admin") {
+
+
             return view("dashboard.admin.index");
         } else if (Auth::user()->role == "teacher") {
             return view("dashboard.teachers.index");

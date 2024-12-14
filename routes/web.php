@@ -3,6 +3,7 @@
 use App\Http\Controllers\AbsenceController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\FacilityScheduleController;
@@ -33,6 +34,12 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
+
+Route::get('/attendance-data', [ChartController::class, 'attendanceData'])->name('attendance.data');
+
+Route::get('/api/subjects', function () {
+    return \App\Models\Subject::select('id', 'name')->get();
+});
 
 
 Route::middleware(['auth', 'verified'])->prefix('/dashboard')->group(function () {
